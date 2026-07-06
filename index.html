@@ -2148,9 +2148,11 @@
             const posPlayers = textoLimpio.indexOf("players:");
             if (posPlayers !== -1) {
                 let fragmento = textoLimpio.substring(posPlayers + 8, posPlayers + 23).trim();
-                let matchArr = fragmento.match(/(\d+\s*\/\s*\d+)/);
-                if (matchArr && matchArr[1]) {
-                    totalJugadoresIframe = matchArr[1].replace(/\s+/g, '');
+                // Buscamos si tiene el formato X/X (ej: 1/40, 5/30)
+                let matchArr = fragmento.match(/(\d+)\s*\/\s*(\d+)/);
+                if (matchArr && matchArr[1] && matchArr[2]) {
+                    // Unimos el número actual y el máximo con espacios a los lados de la barra
+                    totalJugadoresIframe = matchArr[1] + " / " + matchArr[2];
                 } else {
                     let numeroLimpio = fragmento.match(/\d+/);
                     if (numeroLimpio) totalJugadoresIframe = numeroLimpio[0];
